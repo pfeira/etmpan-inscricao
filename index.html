@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <title>Inscrição Campeonato ETMPAN</title>
-  <style>
+  
+    <style>
     body { font-family: Arial, sans-serif; background: #f2f2f2; display:flex; justify-content:center; align-items:center; height:100vh; margin: 0; padding: 20px;}
     .card { display: flex; background: #fff; border-radius: 12px; box-shadow: 0 4px 8px rgba(0,0,0,0.2); overflow: hidden; width: 100%; max-width: 950px; }
     .card-image { width: 350px; flex-shrink: 0; background-color: #f0f0f0; }
@@ -24,20 +25,20 @@
     .msg.success { background:#28a745; color:white; }
     .msg.error { background:#dc3545; color:white; }
     
-    /* ----- ALTERAÇÃO 1 AQUI ----- */
-    .valores-container { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; flex-wrap: wrap; /* Permite que os itens quebrem a linha */ }
+    /* Esta é a regra corrigida para os 4 valores */
+    .valores-container { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; flex-wrap: wrap; }
     
-    /* ----- ALTERAÇÃO 2 AQUI ----- */
-    .valor-box { flex: 1 1 120px; /* Define uma base de 120px, permitindo crescer ou diminuir */ background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 10px; text-align: center; }
+    /* Esta é a segunda regra corrigida para os 4 valores */
+    .valor-box { flex: 1 1 120px; background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 10px; text-align: center; }
 
     .valor-box h4 { margin: 0 0 5px 0; font-size: 0.9em; font-weight: normal; text-transform: uppercase; }
     .valor-box p { margin: 0; font-size: 0.9em; line-height: 1.4; font-weight: bold; }
   </style>
 </head>
 <body>
-  <div class="card">
+    <div class="card">
     <div class="card-image">
-      <img src="poster.png" alt="Campeonato ETMPAN" id="poster-campeonato">
+            <img src="poster.png" alt="Campeonato ETMPAN" id="poster-campeonato">
     </div>
     <div class="card-content">
       <div class="card-header">
@@ -55,7 +56,7 @@
               <label><input type="checkbox" name="divisao" value="1ª Divisão"> 1ª Divisão</label>
               <label><input type="checkbox" name="divisao" value="2ª Divisão"> 2ª Divisão</label>
               <label><input type="checkbox" name="divisao" value="3ª Divisão"> 3ª Divisão</label>
-              <label><input type="checkbox" name="divisao" value="TOP12"> TOP12</label> 
+                            <label><input type="checkbox" name="divisao" value="TOP12"> TOP12</label> 
             </div>
             <button type="submit">Enviar Inscrição</button>
           </form>
@@ -67,14 +68,14 @@
               <div class="valor-box"><h4>Sócio</h4><p>01 DIV R$ 25<br>02 DIV R$ 30</p></div>
               <div class="valor-box"><h4>Não Sócio</h4><p>01 DIV R$ 40<br>02 DIV R$ 60</p></div>
               <div class="valor-box"><h4>TOP12</h4><p>R$ 40</p></div>
-            </div>
+      >     </div>
             <div class="pix">PIX ÂNGELO NETO: 71-99935-3004</div>
           </div>
       </div>
     </div>
   </div>
-  <script>
-    // O JavaScript não precisa de nenhuma alteração.
+
+    <script>
     const scriptURL = "https://script.google.com/macros/s/AKfycbzq3J50mZmaHq97t8f0sGLRKF14856umOr9_0W5JGTPx7UKe3d8lDz7kbnp07ypMAMz/exec";
     const form = document.getElementById("formInscricao");
     const msgBox = document.getElementById("mensagem");
@@ -96,10 +97,10 @@
       .then(data => {
           if (data.result === "success") {
               msgBox.textContent = data.message;
-              msgBox.className = "msg success";
-              form.reset();
+            	msgBox.className = "msg success";
+            	form.reset();
           } else {
-              throw new Error(data.message || 'Falha na resposta do servidor.');
+            	throw new Error(data.message || 'Falha na resposta do servidor.');
           }
       })
       .catch(error => {
@@ -109,28 +110,28 @@
       .finally(() => {
           msgBox.style.display = "block";
           submitButton.textContent = 'Enviar Inscrição';
-          submitButton.disabled = false;
-          setTimeout(() => { msgBox.style.display = "none"; }, 5000);
+        	submitButton.disabled = false;
+        	setTimeout(() => { msgBox.style.display = "none"; }, 5000);
       });
     });
     const checkboxesDivisao = document.querySelectorAll('input[name="divisao"]');
     const maxSelecoes = 2;
-    checkboxesDivisao.forEach(checkbox => {
+  	checkboxesDivisao.forEach(checkbox => {
       checkbox.addEventListener('change', () => {
         const selecionados = document.querySelectorAll('input[name="divisao"]:checked').length;
         if (selecionados > maxSelecoes) {
           alert(`Você pode selecionar no máximo ${maxSelecoes} divisões.`);
           checkbox.checked = false;
-        }
+      	}
       });
-    });
+  	});
     const posterImg = document.getElementById('poster-campeonato');
-    posterImg.onerror = function() {
-      const imageContainer = document.querySelector('.card-image');
-      if(imageContainer) {
+  	posterImg.onerror = function() {
+  	  const imageContainer = document.querySelector('.card-image');
+  	  if(imageContainer) {
         imageContainer.style.display = 'none';
-      }
-    };
+    	}
+  	};
   </script>
 </body>
 </html>
