@@ -23,8 +23,13 @@
     .msg { margin-top:15px; padding:10px; border-radius:6px; display:none; text-align: center; }
     .msg.success { background:#28a745; color:white; }
     .msg.error { background:#dc3545; color:white; }
-    .valores-container { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; }
-    .valor-box { flex: 1; background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 10px; text-align: center; }
+    
+    /* ----- ALTERAÇÃO 1 AQUI ----- */
+    .valores-container { display: flex; justify-content: space-between; gap: 10px; margin-top: 15px; flex-wrap: wrap; /* Permite que os itens quebrem a linha */ }
+    
+    /* ----- ALTERAÇÃO 2 AQUI ----- */
+    .valor-box { flex: 1 1 120px; /* Define uma base de 120px, permitindo crescer ou diminuir */ background: rgba(255, 255, 255, 0.15); border-radius: 8px; padding: 10px; text-align: center; }
+
     .valor-box h4 { margin: 0 0 5px 0; font-size: 0.9em; font-weight: normal; text-transform: uppercase; }
     .valor-box p { margin: 0; font-size: 0.9em; line-height: 1.4; font-weight: bold; }
   </style>
@@ -50,7 +55,7 @@
               <label><input type="checkbox" name="divisao" value="1ª Divisão"> 1ª Divisão</label>
               <label><input type="checkbox" name="divisao" value="2ª Divisão"> 2ª Divisão</label>
               <label><input type="checkbox" name="divisao" value="3ª Divisão"> 3ª Divisão</label>
-                          <label><input type="checkbox" name="divisao" value="TOP12"> TOP12</label> 
+              <label><input type="checkbox" name="divisao" value="TOP12"> TOP12</label> 
             </div>
             <button type="submit">Enviar Inscrição</button>
           </form>
@@ -61,7 +66,7 @@
               <div class="valor-box"><h4>Estudante</h4><p>R$ 20</p></div>
               <div class="valor-box"><h4>Sócio</h4><p>01 DIV R$ 25<br>02 DIV R$ 30</p></div>
               <div class="valor-box"><h4>Não Sócio</h4><p>01 DIV R$ 40<br>02 DIV R$ 60</p></div>
-            <div class="valor-box"><h4>TOP12</h4><p>R$ 40</p></div>
+              <div class="valor-box"><h4>TOP12</h4><p>R$ 40</p></div>
             </div>
             <div class="pix">PIX ÂNGELO NETO: 71-99935-3004</div>
           </div>
@@ -69,6 +74,7 @@
     </div>
   </div>
   <script>
+    // O JavaScript não precisa de nenhuma alteração.
     const scriptURL = "https://script.google.com/macros/s/AKfycbzq3J50mZmaHq97t8f0sGLRKF14856umOr9_0W5JGTPx7UKe3d8lDz7kbnp07ypMAMz/exec";
     const form = document.getElementById("formInscricao");
     const msgBox = document.getElementById("mensagem");
@@ -107,9 +113,6 @@
           setTimeout(() => { msgBox.style.display = "none"; }, 5000);
       });
     });
-    
-    // O JavaScript abaixo funciona perfeitamente para o novo checkbox
-    // Ele já limita a seleção para no máximo 2, incluindo o "TOP12"
     const checkboxesDivisao = document.querySelectorAll('input[name="divisao"]');
     const maxSelecoes = 2;
     checkboxesDivisao.forEach(checkbox => {
@@ -121,7 +124,6 @@
         }
       });
     });
-
     const posterImg = document.getElementById('poster-campeonato');
     posterImg.onerror = function() {
       const imageContainer = document.querySelector('.card-image');
